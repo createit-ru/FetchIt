@@ -26,4 +26,9 @@ return [
         'value' => 0,
         'area' => 'fetchit_main',
     ],
+    'use_session' => [
+        'xtype' => 'combo-boolean',
+        'value' => 1,
+        'area' => 'fetchit_main',
+    ],
 ];

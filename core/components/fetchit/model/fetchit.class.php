@@ -28,6 +28,8 @@ class FetchIt
         $default_notifier = (bool)$this->modx->getOption('fetchit.frontend.default.notifier', null,
             true, false);
 
+        $use_session = $this->modx->getOption('fetchit.use_session', null,true);
+
         $this->modx->lexicon->load('fetchit:default');
 
         $this->config = array_merge(array(
@@ -42,6 +44,8 @@ class FetchIt
             'frontend_js' => $frontend_js,
 
             'default_notifier' => $default_notifier,
+
+            'use_session' => $use_session
         ), $config);
     }
 
@@ -123,7 +127,7 @@ class FetchIt
      */
     public function process($action, array $fields = array())
     {
-        $scriptProperties = !empty(session_id())
+        $scriptProperties = ($this->config['use_session'] && !empty(session_id()))
             ? @$_SESSION['FetchIt'][$action]
             : $this->modx->cacheManager->get('fetchit/props_' . $action);
 
